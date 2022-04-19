@@ -2,6 +2,7 @@ import { uniqueId } from 'lodash'
 import Neighborhood from 'model/Neighborhood'
 import Visibility from 'model/enum/Visibility'
 import Compass from 'model/enum/Compass'
+import Position from 'model/Position'
 
 import TileUtils from 'utils/TileUtils'
 import CompassUtils from 'utils/CompassUtils'
@@ -13,12 +14,15 @@ type Options = {
 class Tile {
   id: string
 
+  position: Position
+
   neighbors: Neighborhood
 
   visibility: Visibility
 
-  constructor() {
+  constructor(x = 0, y = 0) {
     this.id = uniqueId()
+    this.position = new Position(x, y)
     this.visibility = Visibility.Invisible
     this.neighbors = new Neighborhood()
   }
@@ -41,6 +45,11 @@ class Tile {
     TileUtils.addContext(this, { depth: options?.depth })
   }
 
+  // TODO: removeNeighbor [Check me out!]
+  // Does it make sense to keep this code? With TileUtils.addContext implementation
+  // removing a neighbor should probably remove it self from all other neighbor. If
+  // all traces are not removed, any neighbor updated will restored the deleted
+  // relationship.
   removeNeighbor(direction: Compass) {
     const neighbor = this.neighbors.direction[direction]
 
