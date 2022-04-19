@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "test": "jest",
+    "test": "jest --detectOpenHandles --watch",
+    "test:no-watch": "jest",
     "e2e:open": "cypress open",
     "e2e:run": "cypress run",
     "lint": "eslint src",
