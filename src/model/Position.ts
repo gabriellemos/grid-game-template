@@ -1,3 +1,5 @@
+import PositionUtils from 'utils/PositionUtils'
+
 class Position {
   x: number
 
@@ -12,6 +14,11 @@ class Position {
     const localX = (other.x - this.x) ** 2
     const localY = (other.y - this.y) ** 2
     return Math.sqrt(localX + localY)
+  }
+
+  directionTo(other: Position) {
+    const vector = new Position(other.x - this.x, other.y - this.y)
+    return PositionUtils.toDirection(vector)
   }
 }
 

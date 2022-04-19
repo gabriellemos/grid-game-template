@@ -1,3 +1,4 @@
+import Compass from 'model/enum/Compass'
 import Position from '../Position'
 
 describe('Position tests', () => {
@@ -11,5 +12,17 @@ describe('Position tests', () => {
     expect(new Position(-3, 2).distance(new Position(3, -2))).toBe(
       2 * Math.sqrt(13)
     )
+  })
+
+  it('direction from pointA to pointB', () => {
+    const pointA = new Position(0, 0)
+    expect(pointA.directionTo(new Position(0, 5))).toBe(Compass.NORTH)
+    expect(pointA.directionTo(new Position(5, 5))).toBe(Compass.NORTHEAST)
+    expect(pointA.directionTo(new Position(5, 0))).toBe(Compass.EAST)
+    expect(pointA.directionTo(new Position(5, -5))).toBe(Compass.SOUTHEAST)
+    expect(pointA.directionTo(new Position(0, -5))).toBe(Compass.SOUTH)
+    expect(pointA.directionTo(new Position(-5, -5))).toBe(Compass.SOUTHWEST)
+    expect(pointA.directionTo(new Position(-5, 0))).toBe(Compass.WEST)
+    expect(pointA.directionTo(new Position(-5, 5))).toBe(Compass.NORTHWEST)
   })
 })
