@@ -2,15 +2,6 @@ import Compass from 'model/enum/Compass'
 import Position from 'model/Position'
 import PositionUtils from 'utils/PositionUtils'
 
-// □□□□x
-// □□□□x
-// □□□x□
-// □□□x□
-// □□x□□
-// □x□□□
-// □x□□□
-// x□□□□
-
 describe('PositionUtils test', () => {
   it('check toDirection results (++)', () => {
     const scenarioList: [Position, Compass][] = [
@@ -25,20 +16,10 @@ describe('PositionUtils test', () => {
 
     scenarioList.forEach((scenario) => {
       const [vector, result] = scenario
-      expect(PositionUtils.toDirection(vector)).toBe(result)
+      expect(PositionUtils.generalDirection(vector)).toBe(result)
     })
   })
 
-  // x□□
-  // x□□
-  // x□□
-  // x□□
-  // x□□
-  // x□□
-  // x□□
-  // □x□
-  // □x□
-  // □□x
   it('check toDirection results (+-)', () => {
     const scenarioList: [Position, Compass][] = [
       [new Position(2, -9), Compass.SOUTH],
@@ -54,8 +35,7 @@ describe('PositionUtils test', () => {
 
     scenarioList.forEach((scenario) => {
       const [vector, result] = scenario
-      console.log(vector)
-      expect(PositionUtils.toDirection(vector)).toBe(result)
+      expect(PositionUtils.generalDirection(vector)).toBe(result)
     })
   })
 })

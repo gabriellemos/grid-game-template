@@ -18,7 +18,7 @@ class Position {
 
   directionTo(other: Position) {
     const vector = new Position(other.x - this.x, other.y - this.y)
-    return PositionUtils.toDirection(vector)
+    return PositionUtils.generalDirection(vector)
   }
 }
 

@@ -5,14 +5,12 @@ import Position from 'model/Position'
 
 class PositionUtils {
   /**
-   * Calculate crude direction to where it must go to reach destination.
+   * General direction of vector.
    *
    * @param vector representation of destination.
    * @returns direction to follow or undefined if at origin (0, 0).
    */
-  static toDirection(vector: Position) {
-    // TODO: Must update calculations to be smoother. This function will
-    // most likely be used later on to check if tile is on sight.
+  static generalDirection(vector: Position) {
     const result = new Position(Math.sign(vector.x), Math.sign(vector.y))
     if (Math.abs(vector.x) > Math.abs(vector.y)) {
       if (Math.abs(vector.y / vector.x) <= 0.5) {
