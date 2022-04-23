@@ -7,7 +7,7 @@ describe('Tile tests', () => {
     const tile = new Tile()
 
     expect(tile.id).not.toBeNull()
-    expect(tile.neighbors.direction).not.toBeNull()
+    expect(tile.neighbors).not.toBeNull()
     expect(tile.visibility).toBe(Visibility.Invisible)
   })
 
@@ -16,8 +16,8 @@ describe('Tile tests', () => {
     const tileB = new Tile()
     tileA.setNeighbor(Compass.NORTH, tileB)
 
-    expect(tileA.neighbors.direction[Compass.NORTH]).toBe(tileB)
-    expect(tileB.neighbors.direction[Compass.SOUTH]).toBe(tileA)
+    expect(tileA.neighbors.get(Compass.NORTH)).toBe(tileB)
+    expect(tileB.neighbors.get(Compass.SOUTH)).toBe(tileA)
   })
 
   it('setNeighbor add context to new neighbor [1]', () => {
@@ -28,8 +28,8 @@ describe('Tile tests', () => {
     tileN.setNeighbor(Compass.EAST, tileNE)
     tileNE.setNeighbor(Compass.SOUTH, tileE)
 
-    expect(tileN.neighbors.direction[Compass.EAST]).toBe(tileNE)
-    expect(tileN.neighbors.direction[Compass.SOUTHEAST]).toBe(tileE)
+    expect(tileN.neighbors.get(Compass.EAST)).toBe(tileNE)
+    expect(tileN.neighbors.get(Compass.SOUTHEAST)).toBe(tileE)
   })
 
   it('setNeighbor add context to new neighbor [2]', () => {
@@ -52,44 +52,44 @@ describe('Tile tests', () => {
     tileNW.setNeighbor(Compass.EAST, tileN)
 
     // Relationships of North tile
-    expect(tileN.neighbors.direction[Compass.EAST]).toBe(tileNE)
-    expect(tileN.neighbors.direction[Compass.SOUTHEAST]).toBe(tileE)
-    expect(tileN.neighbors.direction[Compass.SOUTHWEST]).toBe(tileW)
-    expect(tileN.neighbors.direction[Compass.WEST]).toBe(tileNW)
+    expect(tileN.neighbors.get(Compass.EAST)).toBe(tileNE)
+    expect(tileN.neighbors.get(Compass.SOUTHEAST)).toBe(tileE)
+    expect(tileN.neighbors.get(Compass.SOUTHWEST)).toBe(tileW)
+    expect(tileN.neighbors.get(Compass.WEST)).toBe(tileNW)
 
     // Relationships of Northeast tile
-    expect(tileNE.neighbors.direction[Compass.SOUTH]).toBe(tileE)
-    expect(tileNE.neighbors.direction[Compass.WEST]).toBe(tileN)
+    expect(tileNE.neighbors.get(Compass.SOUTH)).toBe(tileE)
+    expect(tileNE.neighbors.get(Compass.WEST)).toBe(tileN)
 
     // Relationships of East tile
-    expect(tileE.neighbors.direction[Compass.SOUTH]).toBe(tileSE)
-    expect(tileE.neighbors.direction[Compass.SOUTHWEST]).toBe(tileS)
-    expect(tileE.neighbors.direction[Compass.NORTHWEST]).toBe(tileN)
-    expect(tileE.neighbors.direction[Compass.NORTH]).toBe(tileNE)
+    expect(tileE.neighbors.get(Compass.SOUTH)).toBe(tileSE)
+    expect(tileE.neighbors.get(Compass.SOUTHWEST)).toBe(tileS)
+    expect(tileE.neighbors.get(Compass.NORTHWEST)).toBe(tileN)
+    expect(tileE.neighbors.get(Compass.NORTH)).toBe(tileNE)
 
     // Relationships of Southeast tile
-    expect(tileSE.neighbors.direction[Compass.WEST]).toBe(tileS)
-    expect(tileSE.neighbors.direction[Compass.NORTH]).toBe(tileE)
+    expect(tileSE.neighbors.get(Compass.WEST)).toBe(tileS)
+    expect(tileSE.neighbors.get(Compass.NORTH)).toBe(tileE)
 
     // Relationships of South tile
-    expect(tileS.neighbors.direction[Compass.WEST]).toBe(tileSW)
-    expect(tileS.neighbors.direction[Compass.NORTHWEST]).toBe(tileW)
-    expect(tileS.neighbors.direction[Compass.NORTHEAST]).toBe(tileE)
-    expect(tileS.neighbors.direction[Compass.EAST]).toBe(tileSE)
+    expect(tileS.neighbors.get(Compass.WEST)).toBe(tileSW)
+    expect(tileS.neighbors.get(Compass.NORTHWEST)).toBe(tileW)
+    expect(tileS.neighbors.get(Compass.NORTHEAST)).toBe(tileE)
+    expect(tileS.neighbors.get(Compass.EAST)).toBe(tileSE)
 
     // Relationships of Southeast tile
-    expect(tileSW.neighbors.direction[Compass.NORTH]).toBe(tileW)
-    expect(tileSW.neighbors.direction[Compass.EAST]).toBe(tileS)
+    expect(tileSW.neighbors.get(Compass.NORTH)).toBe(tileW)
+    expect(tileSW.neighbors.get(Compass.EAST)).toBe(tileS)
 
     // Relationships of West tile
-    expect(tileW.neighbors.direction[Compass.NORTH]).toBe(tileNW)
-    expect(tileW.neighbors.direction[Compass.NORTHEAST]).toBe(tileN)
-    expect(tileW.neighbors.direction[Compass.SOUTHEAST]).toBe(tileS)
-    expect(tileW.neighbors.direction[Compass.SOUTH]).toBe(tileSW)
+    expect(tileW.neighbors.get(Compass.NORTH)).toBe(tileNW)
+    expect(tileW.neighbors.get(Compass.NORTHEAST)).toBe(tileN)
+    expect(tileW.neighbors.get(Compass.SOUTHEAST)).toBe(tileS)
+    expect(tileW.neighbors.get(Compass.SOUTH)).toBe(tileSW)
 
     // Relationships of Northwest tile
-    expect(tileNW.neighbors.direction[Compass.EAST]).toBe(tileN)
-    expect(tileNW.neighbors.direction[Compass.SOUTH]).toBe(tileW)
+    expect(tileNW.neighbors.get(Compass.EAST)).toBe(tileN)
+    expect(tileNW.neighbors.get(Compass.SOUTH)).toBe(tileW)
   })
 
   it('setNeighbor add context to new neighbor [3]', () => {
@@ -114,14 +114,14 @@ describe('Tile tests', () => {
     const centerTile = new Tile()
     centerTile.setNeighbor(Compass.EAST, tileE)
 
-    expect(centerTile.neighbors.direction[Compass.NORTH]).toBe(tileN)
-    expect(centerTile.neighbors.direction[Compass.NORTHEAST]).toBe(tileNE)
-    expect(centerTile.neighbors.direction[Compass.EAST]).toBe(tileE)
-    expect(centerTile.neighbors.direction[Compass.SOUTHEAST]).toBe(tileSE)
-    expect(centerTile.neighbors.direction[Compass.SOUTH]).toBe(tileS)
-    expect(centerTile.neighbors.direction[Compass.SOUTHWEST]).toBe(tileSW)
-    expect(centerTile.neighbors.direction[Compass.WEST]).toBe(tileW)
-    expect(centerTile.neighbors.direction[Compass.NORTHWEST]).toBe(tileNW)
+    expect(centerTile.neighbors.get(Compass.NORTH)).toBe(tileN)
+    expect(centerTile.neighbors.get(Compass.NORTHEAST)).toBe(tileNE)
+    expect(centerTile.neighbors.get(Compass.EAST)).toBe(tileE)
+    expect(centerTile.neighbors.get(Compass.SOUTHEAST)).toBe(tileSE)
+    expect(centerTile.neighbors.get(Compass.SOUTH)).toBe(tileS)
+    expect(centerTile.neighbors.get(Compass.SOUTHWEST)).toBe(tileSW)
+    expect(centerTile.neighbors.get(Compass.WEST)).toBe(tileW)
+    expect(centerTile.neighbors.get(Compass.NORTHWEST)).toBe(tileNW)
   })
 
   it('setNeighbor clear past relationships if overwritten', () => {
@@ -131,9 +131,9 @@ describe('Tile tests', () => {
     tileA.setNeighbor(Compass.NORTH, tileB)
     tileA.setNeighbor(Compass.NORTH, tileC)
 
-    expect(tileA.neighbors.direction[Compass.NORTH]).toBe(tileC)
-    expect(tileC.neighbors.direction[Compass.SOUTH]).toBe(tileA)
-    expect(tileB.neighbors.direction[Compass.SOUTH]).toBeUndefined()
+    expect(tileA.neighbors.get(Compass.NORTH)).toBe(tileC)
+    expect(tileC.neighbors.get(Compass.SOUTH)).toBe(tileA)
+    expect(tileB.neighbors.get(Compass.SOUTH)).toBeUndefined()
   })
 
   it('removeNeighbor update both tiles neighbors attribute', () => {
@@ -142,7 +142,7 @@ describe('Tile tests', () => {
     tileA.setNeighbor(Compass.NORTH, tileB)
     tileA.removeNeighbor(Compass.NORTH)
 
-    expect(tileA.neighbors.direction[Compass.NORTH]).toBeUndefined()
-    expect(tileB.neighbors.direction[Compass.SOUTH]).toBeUndefined()
+    expect(tileA.neighbors.get(Compass.NORTH)).toBeUndefined()
+    expect(tileB.neighbors.get(Compass.SOUTH)).toBeUndefined()
   })
 })

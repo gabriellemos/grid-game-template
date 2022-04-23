@@ -20,11 +20,10 @@ class Board {
   }
 
   get(target: Position) {
-    let current = this.origin
+    let current: Tile | undefined = this.origin
     while (current && !isEqual(current.position, target)) {
       const direction = current.position.directionTo(target)
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      current = current.neighbors.direction[direction]!
+      current = direction ? current.neighbors.get(direction) : undefined
     }
     return current
   }

@@ -12,7 +12,7 @@ class TileUtils {
     const visitList: { direction: Compass; tile: Tile }[] = []
     // Populating visit list with existing neighbors
     Object.values(Compass).forEach((direction) => {
-      const tile = original.neighbors.direction[direction]
+      const tile = original.neighbors.get(direction)
       if (tile) {
         visitList.push({ direction, tile })
         ignoreID[tile.id] = true
@@ -25,7 +25,7 @@ class TileUtils {
 
       // Searching non-null relative neighbors to visit
       CompassUtils.getContextNeighbors(current.direction).forEach((context) => {
-        const tile = current.tile.neighbors.direction[context.position2Self]
+        const tile = current.tile.neighbors.get(context.position2Self)
         // Ignore if already added to visit list
         if (tile && !ignoreID[tile.id]) {
           ignoreID[tile.id] = true

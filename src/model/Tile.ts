@@ -24,20 +24,20 @@ class Tile {
     this.id = uniqueId()
     this.position = new Position(x, y)
     this.visibility = Visibility.Invisible
-    this.neighbors = new Neighborhood()
+    this.neighbors = new Map()
   }
 
   setNeighbor(direction: Compass, neighbor: Tile, options?: Options) {
     // Check if relationship is already set
-    if (this.neighbors.direction[direction]?.id === neighbor.id) {
+    if (this.neighbors.get(direction)?.id === neighbor.id) {
       return
     }
 
     this.removeNeighbor(direction)
     // Updating neighborhood relationship
-    this.neighbors.direction[direction] = neighbor
+    this.neighbors.set(direction, neighbor)
     const oppositeDirection = CompassUtils.getOpposite(direction)
-    if (neighbor.neighbors.direction[oppositeDirection]?.id !== this.id) {
+    if (neighbor.neighbors.get(oppositeDirection)?.id !== this.id) {
       neighbor.setNeighbor(oppositeDirection, this, {
         depth: options?.depth || 0 + 1,
       })
@@ -51,9 +51,9 @@ class Tile {
   // all traces are not removed, any neighbor updated will restored the deleted
   // relationship.
   removeNeighbor(direction: Compass) {
-    const neighbor = this.neighbors.direction[direction]
+    const neighbor = this.neighbors.get(direction)
 
-    this.neighbors.direction[direction] = undefined
+    this.neighbors.delete(direction)
     // Removing link with previous neighbor to avoid loose ends
     neighbor?.removeNeighbor(CompassUtils.getOpposite(direction))
   }
