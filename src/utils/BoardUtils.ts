@@ -13,13 +13,15 @@ class BoardUtils {
   static generateBoard(origin: Tile, width: number, height: number) {
     let previous: Tile | undefined
     let firstOfLine: Tile | undefined
-    const halfX = Math.ceil(width / 2)
-    const halfY = Math.ceil(height / 2)
-    for (let y = halfY - 1; y > -halfY; y -= 1) {
-      for (let x = -halfX; x < halfX; x += 1) {
+    const halfX = Math.floor(width / 2)
+    const halfY = Math.floor(height / 2)
+    const startX = width % 2 === 0 ? 1 - halfX : -halfX
+    const finishY = height % 2 === 0 ? 1 - halfY : -halfY
+    for (let y = halfY; y >= finishY; y -= 1) {
+      for (let x = startX; x <= halfX; x += 1) {
         // Creating new Tile or using center tile
         const current = x === y && x === 0 ? origin : new Tile(x, y)
-        if (x === -halfX) {
+        if (x === startX) {
           // At the start of each 'line'
           if (firstOfLine) {
             current.setNeighbor(Compass.NORTH, firstOfLine)

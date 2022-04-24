@@ -142,26 +142,26 @@ describe('FieldOfVision test', () => {
     it('tile with obstacle provide cover to other tiles', () => {
       const board = new Board(2, 5)
       const fov = new FieldOfVision(5)
-      board.get(new Position(0, -1))?.content.push(obstacle)
-      fov.recalculateFrom(board.get(new Position(-1, -2))!)
+      board.get(new Position(1, -1))?.content.push(obstacle)
+      fov.recalculateFrom(board.get(new Position(0, -2))!)
 
       const visible = [
-        new Position(-1, -2),
-        new Position(-1, -1),
-        new Position(-1, 0),
-        new Position(-1, 1),
-        new Position(-1, 2),
         new Position(0, -2),
         new Position(0, -1),
+        new Position(0, 0),
+        new Position(0, 1),
+        new Position(0, 2),
+        new Position(1, -2),
+        new Position(1, -1),
       ]
       visible.forEach((position) => {
         expect(fov.getTileVisibility(position)).toBe(Visibility.Visible)
       })
 
       const invisible = [
-        new Position(0, 0),
-        new Position(0, 1),
-        new Position(0, 2),
+        new Position(1, 0),
+        new Position(1, 1),
+        new Position(1, 2),
       ]
       invisible.forEach((position) => {
         expect(fov.getTileVisibility(position)).toBe(Visibility.Invisible)
