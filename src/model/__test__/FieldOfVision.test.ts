@@ -3,6 +3,7 @@ import Board from 'model/Board'
 import Position from 'model/Position'
 import FieldOfVision from 'model/FieldOfVision'
 import Visibility from 'model/enum/Visibility'
+import IContent from 'model/interface/IContent'
 
 describe('FieldOfVision test', () => {
   describe('moving diagonaly has a higher cost', () => {
@@ -18,16 +19,17 @@ describe('FieldOfVision test', () => {
         new Position(-1, 0),
         new Position(0, -1),
       ]
+
+      visible.forEach((position) => {
+        expect(fov.getTileVisibility(position)).toBe(Visibility.Visible)
+      })
+
       const invisible = [
         new Position(-1, -1),
         new Position(-1, 1),
         new Position(1, -1),
         new Position(1, 1),
       ]
-
-      visible.forEach((position) => {
-        expect(fov.getTileVisibility(position)).toBe(Visibility.Visible)
-      })
       invisible.forEach((position) => {
         expect(fov.getTileVisibility(position)).toBe(Visibility.Invisible)
       })
@@ -100,6 +102,69 @@ describe('FieldOfVision test', () => {
       const seen = [new Position(-1, 1), new Position(-1, 0)]
       seen.forEach((position) => {
         expect(fov.getTileVisibility(position)).toBe(Visibility.Seen)
+      })
+    })
+  })
+
+  describe('tile with obstacle can limit FOV', () => {
+    const obstacle: IContent = {
+      isSightBlocker: () => true,
+      isMovementBlocker: () => true,
+    }
+    it('tile with obstacle are marked as on sight', () => {
+      const board = new Board(3, 3)
+      const fov = new FieldOfVision(3)
+      board.origin.content.push(obstacle)
+      fov.recalculateFrom(board.get(new Position(1, 1))!)
+
+      const visible = [
+        new Position(-1, 1),
+        new Position(0, 1),
+        new Position(1, 1),
+        new Position(0, 0),
+        new Position(1, 0),
+        new Position(1, -1),
+      ]
+      visible.forEach((position) => {
+        expect(fov.getTileVisibility(position)).toBe(Visibility.Visible)
+      })
+
+      const invisible = [
+        new Position(-1, 0),
+        new Position(-1, -1),
+        new Position(0, -1),
+      ]
+      invisible.forEach((position) => {
+        expect(fov.getTileVisibility(position)).toBe(Visibility.Invisible)
+      })
+    })
+
+    it('tile with obstacle provide cover to other tiles', () => {
+      const board = new Board(2, 5)
+      const fov = new FieldOfVision(5)
+      board.get(new Position(0, -1))?.content.push(obstacle)
+      fov.recalculateFrom(board.get(new Position(-1, -2))!)
+
+      const visible = [
+        new Position(-1, -2),
+        new Position(-1, -1),
+        new Position(-1, 0),
+        new Position(-1, 1),
+        new Position(-1, 2),
+        new Position(0, -2),
+        new Position(0, -1),
+      ]
+      visible.forEach((position) => {
+        expect(fov.getTileVisibility(position)).toBe(Visibility.Visible)
+      })
+
+      const invisible = [
+        new Position(0, 0),
+        new Position(0, 1),
+        new Position(0, 2),
+      ]
+      invisible.forEach((position) => {
+        expect(fov.getTileVisibility(position)).toBe(Visibility.Invisible)
       })
     })
   })

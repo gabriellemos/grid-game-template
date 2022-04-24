@@ -26,26 +26,31 @@ class FieldOfVision {
   }
 
   recalculateFrom(tile: Tile) {
+    const added = new Set<Tile>()
     const onSight = new Map<string, Tile>()
     const visitMap: Map<number, Set<Tile>> = new Map()
     visitMap.set(this.sightRange, new Set([tile]))
+    added.add(tile)
 
     let currentSight = this.sightRange
     while (currentSight >= 0) {
       // Iterating list of current sight
       // eslint-disable-next-line no-loop-func
       visitMap.get(currentSight)?.forEach((currentTile) => {
-        // TODO: Check if currentTile is on sight first
+        if (!FieldOfVision.hasSightVisibility(tile, currentTile, onSight)) {
+          return
+        }
         onSight.set(currentTile.position.hash(), currentTile)
         currentTile.neighbors.forEach((neighbor, direction) => {
           const remainingSight = currentSight - CompassUtils.getCost(direction)
-          if (remainingSight >= 0) {
+          if (remainingSight >= 0 && !added.has(neighbor)) {
             // Initialize list if it haven't already
             if (!visitMap.has(remainingSight)) {
               visitMap.set(remainingSight, new Set())
             }
             // Add neighbor to peding visit list
             visitMap.get(remainingSight)?.add(neighbor)
+            added.add(neighbor)
           }
         })
       })
@@ -54,6 +59,26 @@ class FieldOfVision {
 
     // Updating onSight to seen
     this.updateVisibility(onSight)
+  }
+
+  private static hasSightVisibility(
+    target: Tile,
+    current: Tile,
+    partialSight: Map<string, Tile>
+  ) {
+    const directionToTarget = current.position.directionTo(target.position)
+    // directionTo returns undefined if already at poition
+    if (directionToTarget) {
+      const neighbor = current.neighbors.get(directionToTarget)
+      if (
+        !neighbor ||
+        neighbor.hasSightObstacle() ||
+        !partialSight.has(neighbor.position.hash())
+      ) {
+        return false
+      }
+    }
+    return true
   }
 
   private updateVisibility(onSight: Map<string, Tile>) {

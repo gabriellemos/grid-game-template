@@ -1,8 +1,9 @@
 import { uniqueId } from 'lodash'
-import Neighborhood from 'model/Neighborhood'
-import Visibility from 'model/enum/Visibility'
-import Compass from 'model/enum/Compass'
+
 import Position from 'model/Position'
+import Neighborhood from 'model/Neighborhood'
+import IContent from 'model/interface/IContent'
+import Compass from 'model/enum/Compass'
 
 import TileUtils from 'utils/TileUtils'
 import CompassUtils from 'utils/CompassUtils'
@@ -18,13 +19,19 @@ class Tile {
 
   neighbors: Neighborhood
 
-  visibility: Visibility
+  content: IContent[]
 
   constructor(x = 0, y = 0) {
     this.id = uniqueId()
     this.position = new Position(x, y)
-    this.visibility = Visibility.Invisible
     this.neighbors = new Map()
+    this.content = []
+  }
+
+  hasSightObstacle() {
+    return this.content.reduce((acc, current) => {
+      return acc || current.isSightBlocker()
+    }, false)
   }
 
   setNeighbor(direction: Compass, neighbor: Tile, options?: Options) {

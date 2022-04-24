@@ -15,7 +15,7 @@ class BoardUtils {
     let firstOfLine: Tile | undefined
     const halfX = Math.ceil(width / 2)
     const halfY = Math.ceil(height / 2)
-    for (let y = halfY - 1; y >= -halfY; y -= 1) {
+    for (let y = halfY - 1; y > -halfY; y -= 1) {
       for (let x = -halfX; x < halfX; x += 1) {
         // Creating new Tile or using center tile
         const current = x === y && x === 0 ? origin : new Tile(x, y)

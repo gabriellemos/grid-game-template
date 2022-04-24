@@ -1,5 +1,4 @@
 import Compass from 'model/enum/Compass'
-import Visibility from 'model/enum/Visibility'
 import Tile from 'model/Tile'
 
 describe('Tile tests', () => {
@@ -8,7 +7,6 @@ describe('Tile tests', () => {
 
     expect(tile.id).not.toBeNull()
     expect(tile.neighbors).not.toBeNull()
-    expect(tile.visibility).toBe(Visibility.Invisible)
   })
 
   it('setNeighbor update both tiles neighbors attribute', () => {
