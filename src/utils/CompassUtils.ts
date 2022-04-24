@@ -61,6 +61,13 @@ const oppositeMap = {
   [Compass.NORTHWEST]: Compass.SOUTHEAST,
 }
 
+const mainAxis = new Set([
+  Compass.NORTH,
+  Compass.EAST,
+  Compass.SOUTH,
+  Compass.WEST,
+])
+
 class CompassUtils {
   static getContextNeighbors(position: Compass) {
     return contextNeighbors[position]
@@ -68,6 +75,14 @@ class CompassUtils {
 
   static getOpposite(position: Compass) {
     return oppositeMap[position]
+  }
+
+  static isMainAxis(direction: Compass) {
+    return mainAxis.has(direction)
+  }
+
+  static getCost(direction: Compass) {
+    return this.isMainAxis(direction) ? 1 : 1.5
   }
 }
 

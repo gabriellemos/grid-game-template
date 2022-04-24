@@ -1,3 +1,4 @@
+import hash from 'object-hash'
 import PositionUtils from 'utils/PositionUtils'
 
 class Position {
@@ -19,6 +20,10 @@ class Position {
   directionTo(other: Position) {
     const vector = new Position(other.x - this.x, other.y - this.y)
     return PositionUtils.generalDirection(vector)
+  }
+
+  hash() {
+    return hash(this)
   }
 }
 
