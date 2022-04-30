@@ -1,5 +1,5 @@
-import Compass from 'model/enum/Compass'
-import Tile from 'model/Tile'
+import Compass from 'domain/enum/Compass'
+import Tile from 'domain/Tile'
 
 class BoardUtils {
   /**

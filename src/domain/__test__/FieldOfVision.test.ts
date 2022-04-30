@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import Board from 'model/Board'
-import Position from 'model/Position'
-import FieldOfVision from 'model/FieldOfVision'
-import Visibility from 'model/enum/Visibility'
-import IContent from 'model/interface/IContent'
+import Board from 'domain/Board'
+import Position from 'domain/Position'
+import FieldOfVision from 'domain/FieldOfVision'
+import Visibility from 'domain/enum/Visibility'
+import IContent from 'domain/interface/IContent'
 
 describe('FieldOfVision test', () => {
   describe('moving diagonaly has a higher cost', () => {

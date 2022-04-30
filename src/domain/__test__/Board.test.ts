@@ -1,5 +1,5 @@
-import Board from 'model/Board'
-import Position from 'model/Position'
+import Board from 'domain/Board'
+import Position from 'domain/Position'
 
 describe('Board tests', () => {
   it('Board generation 2x2', () => {

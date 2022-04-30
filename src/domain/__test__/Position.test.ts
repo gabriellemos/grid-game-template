@@ -1,4 +1,4 @@
-import Compass from 'model/enum/Compass'
+import Compass from 'domain/enum/Compass'
 import Position from '../Position'
 
 describe('Position tests', () => {

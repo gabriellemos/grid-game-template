@@ -1,4 +1,4 @@
-import Tile from 'model/Tile'
+import Tile from 'domain/Tile'
 
 class Pathfinding {
   /**

@@ -1,12 +1,12 @@
 import { uniqueId } from 'lodash'
 
-import Position from 'model/Position'
-import Neighborhood from 'model/Neighborhood'
-import IContent from 'model/interface/IContent'
-import Compass from 'model/enum/Compass'
+import Position from 'domain/Position'
+import Neighborhood from 'domain/Neighborhood'
+import IContent from 'domain/interface/IContent'
+import Compass from 'domain/enum/Compass'
 
-import TileUtils from 'utils/TileUtils'
-import CompassUtils from 'utils/CompassUtils'
+import TileUtils from 'domain/utils/TileUtils'
+import CompassUtils from 'domain/utils/CompassUtils'
 
 type Options = {
   depth?: number

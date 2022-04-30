@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import Board from 'model/Board'
-import Position from 'model/Position'
-import IContent from 'model/interface/IContent'
-import Pathfinding from 'model/Pathfinding'
+import Board from 'domain/Board'
+import Position from 'domain/Position'
+import IContent from 'domain/interface/IContent'
+import Pathfinding from 'domain/Pathfinding'
 
 describe('Pathfinding test', () => {
   const obstacle: IContent = {

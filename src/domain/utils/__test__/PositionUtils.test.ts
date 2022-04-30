@@ -1,6 +1,6 @@
-import Compass from 'model/enum/Compass'
-import Position from 'model/Position'
-import PositionUtils from 'utils/PositionUtils'
+import Compass from 'domain/enum/Compass'
+import Position from 'domain/Position'
+import PositionUtils from 'domain/utils/PositionUtils'
 
 describe('PositionUtils test', () => {
   it('check toDirection results (++)', () => {

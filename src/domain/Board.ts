@@ -1,8 +1,8 @@
 import { isEqual } from 'lodash'
 
-import Tile from 'model/Tile'
-import BoardUtils from 'utils/BoardUtils'
-import Position from 'model/Position'
+import Tile from 'domain/Tile'
+import BoardUtils from 'domain/utils/BoardUtils'
+import Position from 'domain/Position'
 
 class Board {
   width: number

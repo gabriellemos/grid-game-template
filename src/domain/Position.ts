@@ -1,5 +1,5 @@
 import hash from 'object-hash'
-import PositionUtils from 'utils/PositionUtils'
+import PositionUtils from 'domain/utils/PositionUtils'
 
 class Position {
   x: number

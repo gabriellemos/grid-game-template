@@ -1,6 +1,6 @@
-import Tile from 'model/Tile'
-import Position from 'model/Position'
-import CompassUtils from 'utils/CompassUtils'
+import Tile from 'domain/Tile'
+import Position from 'domain/Position'
+import CompassUtils from 'domain/utils/CompassUtils'
 import Visibility from './enum/Visibility'
 
 class FieldOfVision {

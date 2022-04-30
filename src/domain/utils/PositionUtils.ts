@@ -1,7 +1,7 @@
 import { isEqual } from 'lodash'
 
-import Compass from 'model/enum/Compass'
-import Position from 'model/Position'
+import Compass from 'domain/enum/Compass'
+import Position from 'domain/Position'
 
 class PositionUtils {
   /**
