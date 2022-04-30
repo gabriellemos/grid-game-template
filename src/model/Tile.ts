@@ -34,6 +34,12 @@ class Tile {
     }, false)
   }
 
+  hasMovementBlocker() {
+    return this.content.reduce((acc, current) => {
+      return acc || current.isMovementBlocker()
+    }, false)
+  }
+
   setNeighbor(direction: Compass, neighbor: Tile, options?: Options) {
     // Check if relationship is already set
     if (this.neighbors.get(direction)?.id === neighbor.id) {
