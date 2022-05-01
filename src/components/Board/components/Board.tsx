@@ -41,13 +41,8 @@ function Board({ width, height }: Props) {
     <BoardContainer width={width} height={height} className='isometric'>
       {tileList.map((tile, index) => {
         return (
-          <React.Fragment>
-            <BoardTile
-              key={tile.position.hash()}
-              tile={tile}
-              width={width}
-              height={height}
-            />
+          <React.Fragment key={tile.position.hash()}>
+            <BoardTile tile={tile} width={width} height={height} />
             {(index + 1) % width === 0 && <div className='break' />}
           </React.Fragment>
         )
