@@ -37,6 +37,7 @@ module.exports = {
       },
     ],
     'import/no-unresolved': 'error',
+    'react/jsx-fragments': ['error', 'element'],
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'import/no-extraneous-dependencies': [

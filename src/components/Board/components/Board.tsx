@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 import Tile from 'domain/Tile'
 import Position from 'domain/Position'
@@ -38,9 +38,19 @@ function Board({ width, height }: Props) {
   }, [board])
 
   return (
-    <BoardContainer width={width} height={height}>
-      {tileList.map((tile) => {
-        return <BoardTile key={tile.position.hash()} tile={tile} />
+    <BoardContainer width={width} height={height} className='isometric'>
+      {tileList.map((tile, index) => {
+        return (
+          <React.Fragment>
+            <BoardTile
+              key={tile.position.hash()}
+              tile={tile}
+              width={width}
+              height={height}
+            />
+            {(index + 1) % width === 0 && <div className='break' />}
+          </React.Fragment>
+        )
       })}
     </BoardContainer>
   )

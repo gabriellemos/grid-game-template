@@ -7,7 +7,7 @@ function Home() {
   return (
     <div>
       <h1>{t('home.greetings')}</h1>
-      <Board width={5} height={5} />
+      <Board width={7} height={7} />
     </div>
   )
 }
