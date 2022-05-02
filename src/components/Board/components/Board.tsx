@@ -1,12 +1,13 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import Tile from 'domain/Tile'
 import Position from 'domain/Position'
 import Compass from 'domain/enum/Compass'
 
+import useBoard from 'utils/hooks/useBoard'
+
 import BoardTile from './BoardTile'
 import { BoardContainer } from './styled'
-import useBoard from '../hooks/useBoard'
 
 type Props = {
   width: number
@@ -14,7 +15,13 @@ type Props = {
 }
 
 function Board({ width, height }: Props) {
-  const board = useBoard(width, height)
+  const { board, createBoard } = useBoard()
+
+  useEffect(() => {
+    if (!board) {
+      createBoard(width, height)
+    }
+  }, [board])
 
   const tileList = useMemo(() => {
     // Finding top-left most tile
@@ -38,7 +45,7 @@ function Board({ width, height }: Props) {
   }, [board])
 
   return (
-    <BoardContainer width={width} height={height} className='isometric'>
+    <BoardContainer width={width} height={height} /* className='isometric' */>
       {tileList.map((tile, index) => {
         return (
           <React.Fragment key={tile.position.hash()}>

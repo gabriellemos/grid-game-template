@@ -1,6 +1,8 @@
 import Board from 'components/Board'
 import { useTranslation } from 'react-i18next'
 
+import withBoardContext from 'utils/context/BoardContext'
+
 function Home() {
   const { t } = useTranslation()
 
@@ -12,4 +14,4 @@ function Home() {
   )
 }
 
-export default Home
+export default withBoardContext(Home)

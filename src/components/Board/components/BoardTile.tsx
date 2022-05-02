@@ -18,7 +18,7 @@ function BoardTile({ tile, width, height }: Props) {
   }, [tile, width, height])
 
   return (
-    <BoardTileContainer x={x} y={y} className='isometric'>
+    <BoardTileContainer x={x} y={y} /* className='isometric' */>
       <span>{`[${tile.position.x}, ${tile.position.y}]`}</span>
     </BoardTileContainer>
   )
